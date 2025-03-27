@@ -27,13 +27,9 @@ public class User {
 	}
 	
 	
-	
-	
 	@Override
 	public String toString() {
-		return "User [Username=" + Username + ", Password=" + Password + ", getUsername()=" + getUsername()
-				+ ", getPassword()=" + getPassword() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+		return "User [Username=" + Username + ", Password=" + Password + "]";
 	}
 	
 	
