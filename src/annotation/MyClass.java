@@ -1,7 +1,7 @@
 package annotation;
 
 
-@AboutMe(love="sports", hate="study")
+@AboutMe(love="weekend", hate="weekday")
 public class MyClass {
 
 }
