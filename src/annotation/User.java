@@ -1,4 +1,5 @@
 package annotation;
+
 public class User {
     private String username;
     
