@@ -1,10 +1,13 @@
 package reflection;
 
+
 public class User {
 	private String Username;
-	private String Password;
 	
+
+	private String Password;	// 암호화 필요, spring 이 특정 필드(@Encrtypt 이 붙은 ) 에 대해서 암호화
 	
+
 	public User() {}
 	public User(String username, String password) {
 		super();
