@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 
 @Component
-public class GatchaMain {
+public class GachaMain {
 
     public static void main(String[] args) {
         // 스프링 컨텍스트 초기화
