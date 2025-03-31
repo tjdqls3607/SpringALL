@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 public class LogAspect {
 	
 	// logging 을 위한 객체 필요 
+	// trace > debug > info > warn > error 메소드들은 얼마나 더 자세한 혹은 얼마나 더 중요한 로그를 남기느냐 따라 선택
+	// Spring Boot 의 현재 설정에 따라 로그 출력 결정 default 설정은 info
+	// application.properties 에서 설정 가능
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());	//logback 구현체 (springboot default 구현체)
 	
 	// PointCut (Join Point (모든 메소드) 중 어떤 메소드에 끼어 들 것인가 표현)
@@ -24,11 +27,14 @@ public class LogAspect {
 	// Advice 와 JoinPoint 에 의해 실제 로그 구현
 	@Before("logPointcut()")
 	public void brforeLog(JoinPoint joinpoint) {	//JoinPoint 실제 호출되는 메소드
-		System.out.println("[sysout : before]");
+//		System.out.println("[sysout : before]");
+		logger.info("[Logger : before]");
+		logger.info(joinpoint.getSignature().getName());
 	}
 	
 	@After("logPointcut()")
 	public void afterLog(JoinPoint joinpoint) {	//JoinPoint 실제 호출되는 메소드
-		System.out.println("[sysout : after]");
+//		System.out.println("[sysout : after]");
+		logger.debug("[Logger : after]");
 	}
 }
