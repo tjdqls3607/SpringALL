@@ -9,10 +9,13 @@ public class AspectMain {
 		BusinessProcess bp = (BusinessProcess) context.getBean("businessProcess");
 		bp.bp();
 		System.out.println("--------------------------------------------------");
+		
 		bp.no_bp();
 		System.out.println("--------------------------------------------------");
+		
 		bp.int_bp();
 		System.out.println("--------------------------------------------------");
+		
 		bp.int_String_bp("s1", 0);
 		System.out.println("--------------------------------------------------");
 		
