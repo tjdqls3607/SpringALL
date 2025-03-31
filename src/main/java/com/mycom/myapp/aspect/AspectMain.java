@@ -1,9 +1,22 @@
 package com.mycom.myapp.aspect;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class AspectMain {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("xml/aspect.xml");
+		BusinessProcess bp = (BusinessProcess) context.getBean("businessProcess");
+		bp.bp();
+		System.out.println("--------------------------------------------------");
+		bp.no_bp();
+		System.out.println("--------------------------------------------------");
+		bp.int_bp();
+		System.out.println("--------------------------------------------------");
+		bp.int_String_bp("s1", 0);
+		System.out.println("--------------------------------------------------");
+		
+		context.close();
 
 	}
 
