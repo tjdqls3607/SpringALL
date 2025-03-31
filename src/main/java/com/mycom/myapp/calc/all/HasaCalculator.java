@@ -1,4 +1,4 @@
-package com.mycom.myapp.calc.hasa;
+package com.mycom.myapp.calc.all;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,27 +7,10 @@ import org.springframework.stereotype.Component;
 // CalcMain 의 Spring Context 를 통해서 HasaCalculator 객체를 생성 ( DI )
 @Component
 public class HasaCalculator {
-	// Spring DI 를 사용하지 않는 경우
-//	Calculator calculator = new Calculator();
-	
-	// Spring DI #1 field injection
-//	@Autowired
-//	Calculator calculator;
-	
-	
-	// Spring DI #2 setter injection
-//	Calculator calculator;
-//
-//	@Autowired
-//	public void setCalculator(Calculator calculator) {
-//		this.calculator = calculator;
-//	}
 	
 	//Spring DI #3 constriuctor injection (spring 추천방식)
-	// @Autowired 필요X
-	Calculator calculator;
+	Calculator calculator;	// interface 를 implements 한 객체가 DI
 	
-//	@Autowired
 	public HasaCalculator (Calculator calculator) {
 		super();
 		this.calculator = calculator;
