@@ -11,7 +11,8 @@ public class CalcMain {
 		// main() 에서 Spring Framework 의 환경
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("xml/calc-annotation.xml"); // 설정 xml 문서
 //		Calculator calculator = context.getBean(Calculator.class);	// id 와 무관하게 객체를 DI 
-		Calculator calculator = (Calculator)context.getBean("calculator");	// id 기준 객체를 DI 
+//		Calculator calculator = (Calculator)context.getBean("calculator");	// class 기준 객체를 DI 
+		Calculator calculator = (Calculator)context.getBean("abc");	// name 기준 객체를 DI 
 		System.out.println(calculator.add(3,7));
 		context.close();
 
