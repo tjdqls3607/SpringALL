@@ -62,6 +62,24 @@ public class UrlMappingController {
 		System.out.println("/m8 " + limit + " and " + offset);
 	}
 	
+	// 복수의 url mapping
+	@PostMapping(value= {"/url1", "/url2"})	//  post
+	public void m9() {
+		System.out.println("/url1, /url2");
+	}
+	
+	// sub domain
+	@PostMapping(value="/sub1/*")	//  post
+	public void m10() {
+		System.out.println("/sub1");
+	}
+		
+	// sub domain
+	@PostMapping(value="/sub2/**")	//  post
+	public void m11() {
+		System.out.println("/sub2");
+	}
+	
 	
 	
 	
