@@ -68,7 +68,11 @@ public class UrlMappingController {
 		System.out.println("/url1, /url2");
 	}
 	
+	
 	// sub domain
+	// /sub1 X
+	// /sub1/ OK
+	// /sub1/abc OK
 	@PostMapping(value="/sub1/*")	//  post
 	public void m10() {
 		System.out.println("/sub1");
