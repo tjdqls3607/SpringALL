@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SessionController {
+	
 	@GetMapping("/session1")
 	public String login(String username, String password, HttpSession session)  {
 		// uplus / 1234
@@ -16,4 +17,10 @@ public class SessionController {
 		}
 		return "sessionTest1";
 	}
+	
+	@GetMapping("/session2")
+	public String m()  {
+		return "sessionTest2";
+	}
 }
+
