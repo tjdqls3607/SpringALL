@@ -41,6 +41,12 @@ public class ViewController {
 		mav.addObject("seq", "12345");
 		mav.addObject("carDto", new CarDto("volvo", 200000, "jsb"));
 		mav.setViewName("viewTest4");
-		return mav;
+		return mav;	//forwarding
+	}
+	
+	@GetMapping(value="/redirect")
+	public String redirect() {
+		// ....
+		return "redirect:/viewTest1";
 	}
 }
