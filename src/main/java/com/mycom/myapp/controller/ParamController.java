@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycom.myapp.dto.CarDto;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 // client -> server 로 전송하는 parameter 처리
@@ -68,5 +70,15 @@ public class ParamController {
 	public void m10(@RequestParam(name = "seq2") String seq) {	//123, null
 		System.out.println(seq);
 	}
-
+	
+	// parameter 를 Dto 로
+	// int price가 잘못 : illigalStateException 대신 0 default 값으로 설정
+	// 기본생성자 X : O <= 다른 생성자를 이용
+	// 기본생성자 X, 다른 생성자 X : O <- 컴파일러가 제공하는 기본생성자 + setter 이용
+	// 기본생성자 X, 다른 생성자 X, setter X : X <= 필드값 파라미터로 초기화 X
+	// 기본생성자 X, 다른 생성자 O, setter X : X <= 다른 생성자로 초기화 X
+	@GetMapping("/car")
+	public void m11(CarDto carDto) {
+		System.out.println(carDto);
+	}
 }
