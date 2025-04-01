@@ -1,7 +1,11 @@
 package com.mycom.myapp.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycom.myapp.dto.CarDto;
@@ -77,8 +81,30 @@ public class ParamController {
 	// 기본생성자 X, 다른 생성자 X : O <- 컴파일러가 제공하는 기본생성자 + setter 이용
 	// 기본생성자 X, 다른 생성자 X, setter X : X <= 필드값 파라미터로 초기화 X
 	// 기본생성자 X, 다른 생성자 O, setter X : X <= 다른 생성자로 초기화 X
+	// price -> price2, setter, getter 는 그대로 : O
+	// setPrice() -> setPrice2(), getPrice() -> getPrice2(), price 는 그대로 : X
+	// Spring 의 파라미터 자동화에서 Dto의 필드를 이해 <- Setter, Getter 로 처리
 	@GetMapping("/car")
 	public void m11(CarDto carDto) {
 		System.out.println(carDto);
+	}
+	
+	// 복수개의 parameter 를 처리해야 하는데, 몇개가 될 지, Dto 가 존재 X
+	// @RequestParam Map
+	@GetMapping("/map")
+	public void m12(@RequestParam Map<String, String> params) {
+		System.out.println(params.get("name"));
+		System.out.println(params.get("price"));
+		System.out.println(params.get("owner2"));
+		System.out.println(params.get("price2"));
+	}
+	
+	// Header
+	@PostMapping("/header")
+	public void m13(@RequestHeader("User-Agent") String userAgent,
+			@RequestHeader("API-KEY") String apiKey
+			) {
+		System.out.println(userAgent);
+		System.out.println(apiKey);
 	}
 }

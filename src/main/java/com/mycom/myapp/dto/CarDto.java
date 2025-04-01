@@ -26,7 +26,7 @@ public class CarDto {
 		this.owner = owner;
 	}
 	
-//	public CarDto() {}
+	public CarDto() {}
 	public CarDto(String name, int price, String owner) {
 		super();
 		this.name = name;
