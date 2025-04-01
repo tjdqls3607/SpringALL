@@ -14,3 +14,4 @@ public class HelloController {
 		return "hello";	//jsp WEB-INF/jsp/hello.jsp
 	}
 }
+// servlet 과 비교해서 쉽게, 간단하게 코드를 작성
