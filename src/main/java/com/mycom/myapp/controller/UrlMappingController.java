@@ -2,6 +2,7 @@ package com.mycom.myapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UrlMappingController {
 
+	// get,post 등 request의 method 별 처리
 	@RequestMapping("/m1")	// get,post,... 가능
 	public void m1() {
 		System.out.println("/m1");
@@ -34,4 +36,37 @@ public class UrlMappingController {
 	public void m5() {
 		System.out.println("/m5");
 	}
+	
+	// path variable
+	// client 가 요청시 보내는 데이터는 기본적으로 parameter 사용
+	// 대신 요청 url 의 일부에 포함시켜서 보낼 수도 있다. (REST API)
+	
+	// ../books?bookId=7 <= parameter
+	// ../books/7 <= path variable
+	@GetMapping(value="/books/{bookId}")
+	public void m6(@PathVariable String bookId) {	// int<-->String
+		System.out.println("/m6 " + bookId);
+	}
+	
+	// 목록 페이징 limit, offset
+	// /list/10/and/20
+	@GetMapping(value="/list/{limit}/and/{offset}")
+	public void m7(@PathVariable int limit, @PathVariable int offset) {
+		System.out.println("/m7 " + limit + " and " + offset);
+	}
+	
+	// 목록 페이징 limit, offset
+	// /list/10/20
+	@GetMapping(value="/list/{limit}/{offset}")
+	public void m8(@PathVariable int limit, @PathVariable int offset) {
+		System.out.println("/m8 " + limit + " and " + offset);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
