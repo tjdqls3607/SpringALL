@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpServletRequest;
 
 // client -> server 로 전송하는 parameter 처리
-// servlet, jsp <= reques.getParameter("name")
+// servlet, jsp <= request.getParameter("name")
 // Spring 은 넘어오는 파라미터를 최대한 대응하는 메소드의 파라미터에 자동화 시동
 @Controller
 public class ParamController {
