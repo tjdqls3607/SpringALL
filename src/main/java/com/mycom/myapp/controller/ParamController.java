@@ -2,6 +2,7 @@ package com.mycom.myapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -49,6 +50,23 @@ public class ParamController {
 	@GetMapping("/param7")
 	public void m7(String bookname) {	//null
 		System.out.println(bookname);
+	}
+	
+	// @RequestParam
+	// required 속성 (true 가 default)
+	@GetMapping("/param8")
+	public void m8(@RequestParam String seq) {	//123, warn ( bad request 400 )
+		System.out.println(seq);
+	}
+	
+	@GetMapping("/param9")
+	public void m9(@RequestParam(required = false) String seq) {	//123, null
+		System.out.println(seq);
+	}
+	
+	@GetMapping("/param10")
+	public void m10(@RequestParam(name = "seq2") String seq) {	//123, null
+		System.out.println(seq);
 	}
 
 }
