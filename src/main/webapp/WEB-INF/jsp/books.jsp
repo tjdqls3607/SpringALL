@@ -119,11 +119,9 @@
                 
                 console.log(data);
                 
-                if( data.result == "success" ){
-                    alert('도서 등록!');
-                }else {
-                    alert('도서 등록 실패!');
-                }
+                
+                alert('도서 등록!');
+                
                                 
                 listbook();
                 
@@ -154,11 +152,9 @@
                 
                 console.log(data);
                 
-                if( data.result == "success" ){
-                    alert('도서 수정!');
-                }else {
-                    alert('도서 수정 실패!');
-                }
+               
+                alert('도서 수정!');
+               
                 
                 listbook();
                 
@@ -170,17 +166,15 @@
         
         async function deletebook(){
             let bookId = document.querySelector("#bookId").value;
-            let url = ' /books/delete?bookId=' + bookId;
+            let url = '/books/delete/' + bookId;
             try{
                 let response = await fetch(url);
                 let data = await response.json();       
                 console.log(data);
                 
-                if( data.result == "success" ){
-                    alert('도서 삭제!');
-                }else {
-                    alert('도서 삭제 실패!');
-                }
+                
+                alert('도서 삭제!');
+                
                 
                 listbook();
                 

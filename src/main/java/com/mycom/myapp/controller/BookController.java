@@ -52,27 +52,30 @@ public class BookController {
     
     // 등록 : /books/insert, post, BookDto, insertResult.jsp
     @PostMapping(value="/insert")
-    public String insertBook(BookDto bookDto) {
+    @ResponseBody
+    public int insertBook(BookDto bookDto) {
         System.out.println(bookDto);
         int ret = bookService.insertBook(bookDto);
         System.out.println(ret);
-        return "insertResult";
+        return ret;
     }
     
     // 수정 : /books/update, post, BookDto, updateResult.jsp
     @PostMapping(value="/update")
-    public String updateBook(BookDto bookDto) {
+    @ResponseBody
+    public int updateBook(BookDto bookDto) {
         System.out.println(bookDto);
         int ret = bookService.updateBook(bookDto);
         System.out.println(ret);
-        return "updateResult";
+        return ret;
     }
     // 삭제 : /books/delete, get,  bookId,  deleteResult.jsp
     @GetMapping(value="/delete/{bookId}")
-    public String deleteBook(@PathVariable int bookId) {
+    @ResponseBody
+    public int deleteBook(@PathVariable int bookId) {
     	System.out.println(bookId);
     	int ret = bookService.deleteBook(bookId);
-    	return "deleteResult";
+    	return ret;
     }
     
     // insertForm.jsp 는 삭제 
