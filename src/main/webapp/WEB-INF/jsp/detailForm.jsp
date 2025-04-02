@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,dto.PhoneDto" %>
+<%@ page import="java.util.List, com.mycom.myapp.dto.BookDto" %>
 <%
-PhoneDto phoneDto = (PhoneDto) request.getAttribute("phoneDto");
+	BookDto bookDto = (BookDto) request.getAttribute("bookDto");
 %>
 <!DOCTYPE html>
 <html>
@@ -12,14 +12,14 @@ PhoneDto phoneDto = (PhoneDto) request.getAttribute("phoneDto");
 </head>
 <body>
 	<h1>도서 상세 및 수정</h1>
-	<form action="/phoneManager/phones/update" method="post">
-		<input type="text" name="phoneId" value="<%= phoneDto.getphoneId() %>"></input><br>
-		<input type="text" name="phoneName" value="<%= phoneDto.getphoneName() %>"></input><br>
-		<input type="text" name="publisher" value="<%= phoneDto.getPublisher() %>"></input><br>
-		<input type="text" name="price" value="<%= phoneDto.getPrice() %>"></input><br>
+	<form action="/books/update" method="post">
+		<input type="text" name="bookId" value="<%= bookDto.getBookId() %>"></input><br>
+		<input type="text" name="bookName" value="<%= bookDto.getBookName() %>"></input><br>
+		<input type="text" name="publisher" value="<%= bookDto.getPublisher() %>"></input><br>
+		<input type="text" name="price" value="<%= bookDto.getPrice() %>"></input><br>
 		<button type="submit">수정</button>
 	</form>
-	<a href="/phoneManager/phones/list">목록</a>  <a href="/phoneManager/phones/delete?phoneId=<%= phoneDto.getphoneId() %>">삭제</a>
+	<a href="/books/list">목록</a>  <a href="books/delete?bookId=<%= bookDto.getBookId() %>">삭제</a>
 	<hr>
 </body>
 </html>

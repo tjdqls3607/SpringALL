@@ -20,7 +20,7 @@
 <%
 	for( BookDto bookDto : bookList) {
 %>
-			<tr><td><a href="/books/detail?bookId=<%= bookDto.getBookId() %>"><%= bookDto.getBookId() %></a></td><td><%= bookDto.getBookName() %></td>
+			<tr><td><a href="/books/detail/<%= bookDto.getBookId() %>"><%= bookDto.getBookId() %></a></td><td><%= bookDto.getBookName() %></td>
 			<td><%= bookDto.getPublisher() %></td><td><%= bookDto.getPrice() %></td></tr>
 <%
 	}
