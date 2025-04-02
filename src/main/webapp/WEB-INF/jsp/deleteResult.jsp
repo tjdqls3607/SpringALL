@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>도서 삭제 완료!!!</h1>
-	<a href="/phoneManager/phones/list">목록</a>
+	<a href=/books/list>목록</a>
 </body>
 </html>

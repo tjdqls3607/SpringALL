@@ -19,7 +19,7 @@
 		<input type="text" name="price" value="<%= bookDto.getPrice() %>"></input><br>
 		<button type="submit">수정</button>
 	</form>
-	<a href="/books/list">목록</a>  <a href="books/delete?bookId=<%= bookDto.getBookId() %>">삭제</a>
+	<a href="/books/list">목록</a>  <a href="/books/delete/<%= bookDto.getBookId() %>">삭제</a>
 	<hr>
 </body>
 </html>

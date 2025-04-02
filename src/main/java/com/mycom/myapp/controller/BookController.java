@@ -56,6 +56,12 @@ public class BookController {
         return "updateResult";
     }
     // 삭제 : /books/delete, get,  bookId,  deleteResult.jsp
+    @GetMapping(value="/delete/{bookId}")
+    public String deleteBook(@PathVariable int bookId) {
+    	System.out.println(bookId);
+    	int ret = bookService.deleteBook(bookId);
+    	return "deleteResult";
+    }
     
     // insertForm.jsp 에 대한 요청도 BookController 를 통해서 이동
     // 등록 화면 : /books/insertForm, get, X, insertForm.jsp
