@@ -36,7 +36,7 @@
         
         async function listbook(){
             
-            let url = '/bookManagerAjax/books/list';
+            let url = '/books/list';
             try{
                 let response = await fetch(url); // get 요청 json 포함 응답
                 let data = await response.json(); // response 에서 json 꺼내서 javascript 객체로 변환
@@ -81,7 +81,7 @@
         }   
         
         async function detailbook(bookId){
-            let url = '/bookManagerAjax/books/detail?bookId=' + bookId;
+            let url = '/books/detail?bookId=' + bookId;
             try{
                 let response = await fetch(url);
                 let data = await response.json();       
@@ -111,7 +111,7 @@
                 body: urlParams,
             }
             
-            let url = '/bookManagerAjax/books/insert';
+            let url = '/books/insert';
             
             try{
                 let response = await fetch(url, fetchOptions );
@@ -146,7 +146,7 @@
                 body: urlParams,
             }
             
-            let url = '/bookManagerAjax/books/update';
+            let url = '/books/update';
             
             try{
                 let response = await fetch(url, fetchOptions );
@@ -170,7 +170,7 @@
         
         async function deletebook(){
             let bookId = document.querySelector("#bookId").value;
-            let url = '/bookManagerAjax/books/delete?bookId=' + bookId;
+            let url = ' /books/delete?bookId=' + bookId;
             try{
                 let response = await fetch(url);
                 let data = await response.json();       

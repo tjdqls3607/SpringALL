@@ -7,13 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycom.myapp.dto.BookDto;
 import com.mycom.myapp.service.BookService;
 // Controller 는 항상 front 와 back 연결
 // url mapping 은 front 와 약속
+
+//client 의 ajax 요청에 대해 BookController 는 자바 객체를 json 으로 응답해 줘야 한다.
+//Spring 은  아를 자동화 해 준다. @ReponseBody
 @Controller
 @RequestMapping("/books")
+// @ResponseBody bookMain() 는 jsp 로 분기되어야 한다.
 public class BookController {
     private final BookService bookService;
     
@@ -30,10 +35,10 @@ public class BookController {
     
     // 목록 : /books/list,   get,  X,       list.jsp
     @GetMapping(value="/list")
-    public String listBook(Model model) {
+    @ResponseBody
+    public List<BookDto> listBook() {
         List<BookDto> bookList = bookService.listBook();
-        model.addAttribute("bookList", bookList);
-        return "list";
+        return bookList;
     }
     
     // 상세 : /books/detail, get,  bookId,  detailForm.jsp	// /books/detail/9 path variable
@@ -70,10 +75,5 @@ public class BookController {
     	return "deleteResult";
     }
     
-    // insertForm.jsp 에 대한 요청도 BookController 를 통해서 이동
-    // 등록 화면 : /books/insertForm, get, X, insertForm.jsp
-    @GetMapping(value="/insertForm")
-    public String insertForm() {
-        return "insertForm";
-    }
+    // insertForm.jsp 는 삭제 
 }
