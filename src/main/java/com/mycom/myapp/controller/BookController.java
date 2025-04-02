@@ -43,11 +43,11 @@ public class BookController {
     
     // 상세 : /books/detail, get,  bookId,  detailForm.jsp	// /books/detail/9 path variable
     @GetMapping(value="/detail/{bookId}")
-    public String detailBook(@PathVariable int bookId, Model model) {
+    @ResponseBody
+    public BookDto detailBook(@PathVariable int bookId) {
     	System.out.println(bookId);
     	BookDto bookDto = bookService.detailBook(bookId);
-    	model.addAttribute("bookDto", bookDto);
-    	return "detailForm";
+    	return bookDto;
     }
     
     // 등록 : /books/insert, post, BookDto, insertResult.jsp

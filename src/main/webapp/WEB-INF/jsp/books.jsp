@@ -81,7 +81,7 @@
         }   
         
         async function detailbook(bookId){
-            let url = '/books/detail?bookId=' + bookId;
+            let url = '/books/detail/' + bookId;	//path variable 에 대응
             try{
                 let response = await fetch(url);
                 let data = await response.json();       
