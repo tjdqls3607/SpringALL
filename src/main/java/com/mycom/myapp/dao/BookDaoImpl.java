@@ -1,17 +1,24 @@
 package com.mycom.myapp.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.sql.DataSource;
+import org.springframework.stereotype.Repository;
 import com.mycom.myapp.common.DBManager;
 import com.mycom.myapp.dto.BookDto;
-
 // jdbc 이용
+@Repository  // db access 클래스 // jpa 같은 persistence library 들의 db 관련 예외를 spring 의 통합된 예외로 변경,발생, library가 달라도 동일한 예외처리가 가능
 public class BookDaoImpl implements BookDao{
+    
+//  @Autowired
+    private final DataSource dataSource;
+    
+    public BookDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     
     @Override
     public List<BookDto> listBook() {
@@ -23,7 +30,7 @@ public class BookDaoImpl implements BookDao{
         ResultSet rs = null;
         
         try {
-            con = DBManager.getConnection();
+            con = dataSource.getConnection();
             
             pstmt = con.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -55,7 +62,7 @@ public class BookDaoImpl implements BookDao{
         ResultSet rs = null;
         
         try {
-            con = DBManager.getConnection();
+            con = dataSource.getConnection();
             
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, bookid);
@@ -85,7 +92,7 @@ public class BookDaoImpl implements BookDao{
         PreparedStatement pstmt = null;
         
         try {
-            con = DBManager.getConnection();
+            con = dataSource.getConnection();
             
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, book.getBookId());
@@ -113,7 +120,7 @@ public class BookDaoImpl implements BookDao{
         PreparedStatement pstmt = null;
         
         try {
-            con = DBManager.getConnection();
+            con = dataSource.getConnection();
             
             pstmt = con.prepareStatement(sql);
             
@@ -142,7 +149,7 @@ public class BookDaoImpl implements BookDao{
         PreparedStatement pstmt = null;
         
         try {
-            con = DBManager.getConnection();
+            con = dataSource.getConnection();
             
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, bookId);
