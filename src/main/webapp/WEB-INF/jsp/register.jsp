@@ -14,7 +14,7 @@
 	-->
 	<div class="container">
 		<div class="mb-3 mt-3 d-flex justify-content-center">
-			<h1 class="display-4">바닥트리오</h1>
+			<h1 class="display-4">포켓몬 도감 회원가입</h1>
 		</div>
 		
 		<div class="mb-3">
@@ -23,23 +23,31 @@
 		
 		<form novalidate>
 			<div class="mb-3">
-				<label for="userName" class="form-label">유우저의 이름:</label>
+				<label for="userName" class="form-label">포켓몬 이름:</label>
 				<input type="text" class="form-control" id="userName" name="userName" placeholder="Enter User Name">
+				<div class="valid-feedback">새로운 포켓몬이야!</div>
+				<div class="invalid-feedback">제대로된 포켓몬 이름이 아닌거같아 제대로 해봐</div>
 			</div>
 			
 			<div class="mb-3">
-				<label for="userPassword" class="form-label">쉿! 비밀스러운 번호:</label>
+				<label for="userPassword" class="form-label">비번밀호:</label>
 				<input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="Enter Password">
+				<div class="valid-feedback">새로운 도감번호야!</div>
+				<div class="invalid-feedback">도감번호 양식이 다른거같아..</div>
 			</div>
 			
 			<div class="mb-3">
-				<label for="userPassword2" class="form-label">진짜 이 비밀번호가 맞아?:</label>
+				<label for="userPassword2" class="form-label">비번확밀호인:</label>
 				<input type="password" class="form-control" id="userPassword2" name="userPassword2" placeholder="Confirm Password">
+				<div class="valid-feedback">도감번호가 확실해!</div>
+				<div class="invalid-feedback">도감번호가 서로 다른거같아..</div>
 			</div>
 			
 			<div class="mb-3">
-				<label for="userEmail" class="form-label">너의 전자메일:</label>
+				<label for="userEmail" class="form-label">도감 메일:</label>
 				<input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Endter Email">
+				<div class="valid-feedback">포켓몬 메일이구나</div>
+				<div class="invalid-feedback">이메일이란걸 모르니?</div>
 			</div>
 		</form>
 		<div>
@@ -53,14 +61,56 @@
 		// 버튼이 클릭되면 btnRegister 처리
 		document.querySelector("#btnRegister").onclick = function() {
 			// validation check
-			
+			if (document.querySelectorAll("form .is-valid").length < 0 ) {
+				alert("입력이 올바르지 않아")
+			}else {
+				register();
+			}
 			register();
 		}
 		
 		// focus 를 읽을 때 <- 입력 완료 후 다른 입력으로 넘어 갈 때
 		document.querySelector("#userName").onblur = function() {
-			alert(1);
+			if(validateUserName( this.value)) {
+				this.classList.remove("is-invalid")
+				this.classList.add("is-valid")
+			}else {
+				this.classList.remove("is-valid")
+				this.classList.add("is-invalid")
+			}
 		}
+		
+		document.querySelector("#userPassword").onblur = function() {
+			if(validateUserPassword( this.value)) {
+				this.classList.remove("is-invalid")
+				this.classList.add("is-valid")
+			}else {
+				this.classList.remove("is-valid")
+				this.classList.add("is-invalid")
+			}
+		}
+		
+		document.querySelector("#userPassword2").onblur = function() {
+			if(validateUserPassword2( this.value)) {
+				this.classList.remove("is-invalid")
+				this.classList.add("is-valid")
+			}else {
+				this.classList.remove("is-valid")
+				this.classList.add("is-invalid")
+			}
+		}
+		
+		document.querySelector("#userEmail").onblur = function() {
+			if(validateUserEmail( this.value)) {
+				this.classList.remove("is-invalid")
+				this.classList.add("is-valid")
+			}else {
+				this.classList.remove("is-valid")
+				this.classList.add("is-invalid")
+			}
+		}
+		
+		
 	}
 	
 	function validateUserName(userName) {
@@ -82,9 +132,9 @@
     	return false;
 	}
 	
-	function validateUserName(userPassword2) {
+	function validateUserPassword2(userPassword2) {
 		// userPassword 와 일치하는지 따지면 됨
-		if(userPassword2 = document.querySelector("#userPassword").value) return true;
+		if(Password2 = document.querySelector("#userPassword").value) return true;
 		return false;
 	}
 	
@@ -115,7 +165,16 @@
 		}
 		
 		let response = await fetch("/user/register", fetchOptions);
-		console.log(response);
+		let data = await response.json();
+		
+		if(data.result == "success") {
+			alert("도감 등록이 완료되었습니다!")
+			// 로그인 페이지 이동
+			window.location.href="/pages/login"
+		}else {
+			alert("도감 등록에 실패했습니다ㅠㅠ")
+			console.log(response);
+		}
 	}
 </script>
 </body>
