@@ -66,7 +66,6 @@
 			}else {
 				register();
 			}
-			register();
 		}
 		
 		// focus 를 읽을 때 <- 입력 완료 후 다른 입력으로 넘어 갈 때
