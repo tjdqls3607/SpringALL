@@ -61,9 +61,10 @@
 		// 버튼이 클릭되면 btnRegister 처리
 		document.querySelector("#btnRegister").onclick = function() {
 			// validation check
-			if (document.querySelectorAll("form .is-valid").length < 0 ) {
+			if (document.querySelectorAll("form .is-valid").length > 0 ) {
 				alert("입력이 올바르지 않아")
-			}else {
+				return;
+			}
 				register();
 			}
 		}
