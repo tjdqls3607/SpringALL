@@ -6,6 +6,6 @@
 
 	<insert id ="registerUser" parameterType="com.mycom.myapp.user.dto.UserDto">
 		insert into users (user_name, user_password, user_email, user_register_date)
-					values (#{userName}, #{userPassword}, #{userEmail}. now());
+					values (#{userName}, #{userPassword}, #{userEmail}, now() );
 	</insert>
 </mapper>   
