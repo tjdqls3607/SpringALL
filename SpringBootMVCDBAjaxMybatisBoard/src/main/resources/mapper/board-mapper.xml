@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycom.myapp.board.dao.BoardDao">
+
+	<select id="listBoard" parameterType="com.mycom.myapp.board.dto.BoardParamDto" resultType="com.mycom.myapp.board.dto.BoardDto">
+		select b.board_id, b.user_seq, u.user_name, u.user_profile_image, b.title, b.content, b.reg_dt, b.read_count 
+	 		from board b, users u
+			where b.user_seq = u.user_seq
+			order by board_id desc
+			limit #{limit} offset #{offset};
+	</select>
+	
+	<select id="listBoardTotalCount">
+		select count(*) from board;
+	</select>
+	
+	<select id="listBoardSearchWord" parameterType="com.mycom.myapp.board.dto.BoardParamDto" resultType="com.mycom.myapp.board.dto.BoardDto">
+		select b.board_id, b.user_seq, u.user_name, u.user_profile_image, b.title, b.content, b.reg_dt, b.read_count 
+	 		from board b, users u
+			where b.user_seq = u.user_seq
+				and b.title like concat('%', #{searchWord}, '%')
+			order by board_id desc
+			limit #{limit} offset #{offset};
+	</select>
+	
+	<select id="listBoardSearchWordTotalCount" parameterType="com.mycom.myapp.board.dto.BoardParamDto" >
+		select count(*) from board where title like concat('%', #{searchWord}, '%');
+	</select>
+	
+	<select id="detailBoard" parameterType="int" resultType="com.mycom.myapp.board.dto.BoardDto">
+		select b.board_id, b.user_seq, u.user_name, u.user_profile_image, b.title, b.content, b.reg_dt, b.read_count 
+	 		from board b, users u
+			where b.board_id = #{boardId}
+				and b.user_seq = u.user_seq;
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.mycom.myapp.board.dto.BoardDto">
+		insert into board ( user_seq, title, content, reg_dt, read_count )
+					values( #{userSeq}, #{title}, #{content}, now(), 0 );
+	</insert>
+	
+	<update id="updateBoard" parameterType="com.mycom.myapp.board.dto.BoardDto">
+		update board
+			set title = #{title},
+				content = #{content}
+			where board_id = #{boardId};
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where board_id = #{boardId};
+	</delete>
+	
+	<select id="countBoardUserRead" parameterType="com.mycom.myapp.board.dto.BoardParamDto">
+		select count(*) 
+			from board_user_read
+		 where board_id = #{boardId}
+		 	and user_seq = #{userSeq};
+	</select>
+	
+	<insert id="insertBoardUserRead" parameterType="com.mycom.myapp.board.dto.BoardParamDto">
+		insert into board_user_read ( board_id, user_seq )
+							values  ( #{boardId}, #{userSeq} );
+	</insert>
+	
+	<!--  대량의 동시접속자수가 폭주하는 상황 등 에서는 매번 1건 씩 갱신하면 조회도 못하고 전체적으로 느리게 처리가 진행될 수 있다 -->
+	<!--  	앞단에 조회를 처리하고(보여주고) 대신 요청건을 일괄 처리 후 일괄 update 를 수행하는 경우가 많다  -->
+	<update id="updateBoardReadCount" parameterType="int">
+		update board 
+			set read_count = read_count + 1
+		 where board_id = #{boardId};
+	</update>
+
+</mapper>  
