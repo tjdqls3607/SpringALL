@@ -15,6 +15,7 @@ public class Test {
 		
 		System.out.println(empDto2);
 		
+		empDto2.getEmployeeId();
 	}
 	
 }

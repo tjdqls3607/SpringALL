@@ -2,6 +2,7 @@ package com.mycom.myapp.lombok;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 ////@NoArgsConstructor
 //@AllArgsConstructor
@@ -18,6 +19,7 @@ import lombok.Data;
 // 생성자 대신 Builder 패턴을 사용하자 흐름 + lombok 자체가 생성자에코드 눈에 보이지 않음.
 // Builder 패턴을 이요ㅕㅇ해서 객체를 생성하는 방법 추천
 @Builder
+@Slf4j
 public class EmpDto2 {
 	private int employeeId;
 	private String firstName;
@@ -27,6 +29,10 @@ public class EmpDto2 {
 	
 	final String departmentId;
 	
+	public int getEmployeeId() {
+		log.info("test log");
+		return employeeId;
+	}
 //	public EmpDto2() {}
 //	public EmpDto2(int employeeId, String firstName, String lastName, String email, String hireDate) {
 //		super();
