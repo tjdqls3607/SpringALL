@@ -32,6 +32,8 @@ public class StudentServiceCrudImpl implements StudentServiceCrud{
 	public Student insertStudent(Student student) {
 		// TODO Auto-generated method stub
 		return studentRepository.save(student);
+		// 추가적인 영속화된 student2 로 Business logic 처리 가능
+		
 	}
 
 	@Override
