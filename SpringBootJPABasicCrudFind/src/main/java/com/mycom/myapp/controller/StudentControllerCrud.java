@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycom.myapp.entity.Student;
@@ -45,5 +46,18 @@ public class StudentControllerCrud {
 	@GetMapping("/delete/{id}")	//삭제
 	 public void deleteStudent(@PathVariable("id") Integer id) {
 		studentServiceCrud.deleteStudent(id);
+	}
+	
+	@GetMapping("/count")
+	public long countStudent() {
+		return studentServiceCrud.countStudent();
+	}
+	
+	@GetMapping("/page")
+	public List<Student> listStudent(
+			@RequestParam("pageNumber") Integer pageNumber,
+			@RequestParam("pageSize") Integer pageSize){
+		
+		return studentServiceCrud.listStudent(pageNumber, pageSize);
 	}
 }

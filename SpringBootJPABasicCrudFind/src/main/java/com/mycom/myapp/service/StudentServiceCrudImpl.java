@@ -1,14 +1,19 @@
 package com.mycom.myapp.service;
 
+
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mycom.myapp.entity.Student;
 import com.mycom.myapp.repository.StudentRepository;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Service
 @RequiredArgsConstructor
@@ -54,6 +59,18 @@ public class StudentServiceCrudImpl implements StudentServiceCrud{
 	@Override
 	public void deleteStudent(int id) {
 		studentRepository.deleteById(id);		
+	}
+	
+	@Override
+	public long countStudent() {
+		return studentRepository.count();
+	}
+	
+	@Override
+	public List<Student> listStudent(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Page<Student> page = studentRepository.findAll(pageable);
+		return page.toList();
 	}
 	
 
