@@ -1,5 +1,6 @@
 package com.mycom.myapp.auth.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,14 @@ public class LoginController {
 		if (userResultDto.getResult().equals("success")) {
 			session.setAttribute("userDto", userResultDto.getUserDto());
 		}
+		return userResultDto;
+	}
+	
+	@GetMapping("/logout")
+	public UserResultDto logout(HttpSession session) {
+		UserResultDto userResultDto = new UserResultDto();
+		session.invalidate();
+		userResultDto.setResult("success");
 		return userResultDto;
 	}
 }
