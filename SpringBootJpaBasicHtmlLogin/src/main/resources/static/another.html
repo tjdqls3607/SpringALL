@@ -12,27 +12,15 @@
 	<a href="#" id="linkLogout">Logout |</a> 
 	<a href="/index.html">인덱스 페이지</a> |
 	
-	<script>
-	window.onload = function() {
-		
-		let name = sessionStorage.getItem("name");
-		
-		if (name != null) {
-			document.querySelector("#userName").innerHTML = name;
-			document.querySelector("#userNameWrapper").style.display='inline';
-			document.querySelector("#linkLogout").style.display='inline';
-			
-			document.querySelector("#linkLogin").style.display='none';
-		}else {
-			document.querySelector("#userName").innerHTML = '';
-			document.querySelector("#userNameWrapper").style.display='none';
-			document.querySelector("#linkLogout").style.display='none';
-			
-			document.querySelector("#linkLogin").style.display='inline';
-		}
-	
-		
-	}
-	</script>
+<script src="/assets/js/common.js"></script>
+<script>
+window.onload = function() { 	
+   	initUI;
+    	
+   // 로그아웃
+   document.querySelector("#linkLogout").onclick = logout
+}
+
+</script>
 </body>
 </html>
