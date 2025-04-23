@@ -1,5 +1,13 @@
 package com.mycom.myapp.user.dto;
 
-public class UserResultDto {
+import java.util.List;
 
+import lombok.Data;
+
+@Data
+// @Builder 없음.
+public class UserResultDto {
+	private String result;
+	private UserDto userDto;
+	private List<UserDto> userList;
 }
