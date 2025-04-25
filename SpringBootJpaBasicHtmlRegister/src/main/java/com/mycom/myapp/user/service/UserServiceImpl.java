@@ -1,5 +1,7 @@
 package com.mycom.myapp.user.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.mycom.myapp.user.dto.UserResultDto;
@@ -30,7 +32,10 @@ public class UserServiceImpl implements UserService{
 		
 		// #1 기존 UserRole 을 find, name = ROLE_CUSTOMER
 		UserRole userRole = userRoleRepository.findByName("ROLE_CUSTOMER");
-		System.out.println(userRole);
+		List<UserRole> userRoles = List.of(userRole);
+		user.setUserRoles(userRoles);
+		User savedUser = userRepository.save(user);
+		System.out.println(savedUser);
 		
 		return userResultDto;
 	}

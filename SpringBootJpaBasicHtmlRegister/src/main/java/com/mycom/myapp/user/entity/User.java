@@ -1,6 +1,7 @@
 package com.mycom.myapp.user.entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -30,5 +31,5 @@ public class User {
 	// user 엔티티를 가지고 올때 항상 userRole 또한 가져와야한다
 	@OneToMany(fetch=FetchType.EAGER)
 	@ToString.Exclude
-	private Set<UserRole> userRoles = new HashSet<>();
+	private List<UserRole> userRoles;
 }
