@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService{
 		List<UserRole> userRoles = List.of(userRole);
 		user.setUserRoles(userRoles);
 		User savedUser = userRepository.save(user);
-		System.out.println(savedUser);
 		
+		userResultDto.setResult("success");
 		return userResultDto;
 	}
 
