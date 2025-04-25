@@ -9,7 +9,7 @@ import com.mycom.myapp.entity.Orders;
 
 public interface OrdersRepository extends JpaRepository<Orders, Integer>{
 	
-	@Query("select 0 from Orders o")
+	@Query("select o from Orders o")
 	List<Orders> listOrder();
 
 }

@@ -1,8 +1,6 @@
 package com.mycom.myapp.entity;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 @Entity
 @Getter
 @Setter
@@ -28,7 +25,6 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
     @ManyToOne
 //  @ManyToOne(fetch = FetchType.LAZY)
 //  @ToString.Exclude
@@ -45,5 +41,4 @@ public class Orders {
     
     @Column(name = "order_date")
     private LocalDate orderDate;
-    
 }

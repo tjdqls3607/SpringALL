@@ -18,7 +18,13 @@ public class OrdersController {
 	
 	// #0
 	// Controller 에서 Entity 를 JSON 변환, 응답
-	@GetMapping("listOrders")
+//	@GetMapping("/listorders")
+//	public List<Orders> listOrders() {
+//		return ordersService.listOrder();
+//	}
+	
+	
+	@GetMapping("/listorders")
 	public List<Orders> listOrders() {
 		return ordersService.listOrder();
 	}
