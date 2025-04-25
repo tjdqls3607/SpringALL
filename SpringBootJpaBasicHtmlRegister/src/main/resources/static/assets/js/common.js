@@ -8,13 +8,18 @@ function initUI(){
            document.querySelector("#linkLogout").style.display='inline';
            
            document.querySelector("#linkLogin").style.display='none';
+		   document.querySelector("#linkRegister").style.display='none';
        }else{
            document.querySelector("#userName").innerHTML = '';
            document.querySelector("#userNameWrapper").style.display='none';
            document.querySelector("#linkLogout").style.display='none';
            
            document.querySelector("#linkLogin").style.display='inline';
+		   document.querySelector("#linkRegister").style.display='inline';
        }
+	   
+	   // navbar show
+	   document.querySelector("#navbar").style.display='block';
        
 
    }
