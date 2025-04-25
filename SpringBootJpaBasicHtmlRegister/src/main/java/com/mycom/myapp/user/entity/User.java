@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,8 @@ public class User {
 	private String password;
 	
 	// user 엔티티를 가지고 올때 항상 userRole 또한 가져와야한다
-	@OneToMany(fetch=FetchType.EAGER)
+//	@OneToMany(fetch=FetchType.EAGER)	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST) // #5
 	@ToString.Exclude
 	private List<UserRole> userRoles;
 }
