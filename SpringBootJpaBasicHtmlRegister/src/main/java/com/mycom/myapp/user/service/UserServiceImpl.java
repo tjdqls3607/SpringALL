@@ -4,17 +4,35 @@ import org.springframework.stereotype.Service;
 
 import com.mycom.myapp.user.dto.UserResultDto;
 import com.mycom.myapp.user.entity.User;
+import com.mycom.myapp.user.entity.UserRole;
+import com.mycom.myapp.user.repository.UserRepository;
+import com.mycom.myapp.user.repository.UserRoleRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 // Register 단계
 // UserRepository - save
 // UserRoleRepository - find, save
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService{
 
+	private final UserRepository userRepository;
+	private final UserRoleRepository userRoleRepository;
+	
+
+	
 	@Override
 	public UserResultDto insertUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		UserResultDto userResultDto = new UserResultDto();
+		
+		// #1 기존 UserRole 을 find, name = ROLE_CUSTOMER
+		UserRole userRole = userRoleRepository.findByName("ROLE_CUSTOMER");
+		System.out.println(userRole);
+		
+		return userResultDto;
 	}
 
 }
