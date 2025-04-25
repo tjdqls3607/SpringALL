@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>another.html</h1>
+	<hr>
+	<a href="/login.html" id="linkLogin">Login |</a> 
+	<span id ="userNameWrapper"><span id="userName"></span>님 안녕하세요. |</span> 
+	<a href="#" id="linkLogout">Logout |</a> 
+	<a href="/index.html">인덱스 페이지</a> |
+	
+<script src="/assets/js/common.js"></script>
+<script>
+window.onload = function() { 	
+   	initUI();
+    	
+   // 로그아웃
+   document.querySelector("#linkLogout").onclick = logout
+}
+
+</script>
+</body>
+</html>
