@@ -27,21 +27,37 @@ public class OrdersController {
 	
 	// #1
 	// Controller 에서 Entity -> DTO 변경 후, DTO 를 JSON 으로 변환, 응답
-	@GetMapping("/listorders")
-	public List<OrdersDto> listOrders() {
-		List<Orders> ordersList =  ordersService.listOrder();
-		List<OrdersDto> ordersDtoList = new ArrayList<>();
+//	@GetMapping("/listorders")
+//	public List<OrdersDto> listOrders() {
+//		List<Orders> ordersList =  ordersService.listOrder();
+//		List<OrdersDto> ordersDtoList = new ArrayList<>();
+//		
+//		ordersList.forEach(orders -> {
+//			OrdersDto ordersDto = 
+//					OrdersDto.builder()
+//					.id(orders.getId())
+//					.orderQuantity(orders.getOrderQuantity())
+//					.orderDate(orders.getOrderDate())
+//					.build();
+//			ordersDtoList.add(ordersDto);
+//		});
+//		
+//		return ordersDtoList;
+//	}
+	
+	
+	// #2
+		// Service 에서 Entity -> DTO 변경 후, DTO 를 JSON 으로 변환, 응답
+//		@GetMapping("/listordersservicedto")
+//		public List<OrdersDto> listOrders() {
+//			return ordersService.listOrdersSeviceDto();
+//		}
 		
-		ordersList.forEach(orders -> {
-			OrdersDto ordersDto = 
-					OrdersDto.builder()
-					.id(orders.getId())
-					.orderQuantity(orders.getOrderQuantity())
-					.orderDate(orders.getOrderDate())
-					.build();
-			ordersDtoList.add(ordersDto);
-		});
-		
-		return ordersDtoList;
-	}
+		// #3
+		// Service 에서 Entity -> DTO 변경 후, DTO 를 JSON 으로 변환, 응답
+		@GetMapping("/listordersrepositorydto")
+		public List<OrdersDto> listOrders() {
+			return ordersService.listOrdersRepositoryDto();
+		}
+	
 }
