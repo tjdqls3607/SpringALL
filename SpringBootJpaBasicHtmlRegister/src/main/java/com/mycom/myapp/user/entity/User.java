@@ -30,8 +30,8 @@ public class User {
 	private String password;
 	
 	// user 엔티티를 가지고 올때 항상 userRole 또한 가져와야한다
-//	@OneToMany(fetch=FetchType.EAGER)	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST) // #5
+	@OneToMany(fetch=FetchType.EAGER)	
+//	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST) // #5
 	@ToString.Exclude
 	private List<UserRole> userRoles;
 }
