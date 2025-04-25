@@ -31,10 +31,30 @@ public class UserServiceImpl implements UserService{
 		UserResultDto userResultDto = new UserResultDto();
 		
 		// #1 기존 UserRole 을 find, name = ROLE_CUSTOMER
-		UserRole userRole = userRoleRepository.findByName("ROLE_CUSTOMER");
+//		UserRole userRole = userRoleRepository.findByName("ROLE_CUSTOMER");
+//		List<UserRole> userRoles = List.of(userRole);
+//		user.setUserRoles(userRoles);
+//		User savedUser = userRepository.save(user);
+		
+		
+		// #2. 새로운 UserRole 생성
+		
+		// #2-1 userRole 객체를 save 하지 않음 -> 영속화 X
+//		UserRole userRole = new UserRole();
+//		userRole.setName("role_test");
+//		List<UserRole> userRoles = List.of(userRole);
+//		user.setUserRoles(userRoles);
+//		User savedUser = userRepository.save(user);
+		
+		// #2-2 userRole 객체를 save o -> 영속화 o
+		UserRole userRole = new UserRole();
+		userRole.setName("role_test");
 		List<UserRole> userRoles = List.of(userRole);
 		user.setUserRoles(userRoles);
+		userRoleRepository.save(userRole);	// 위와 다른 부분
 		User savedUser = userRepository.save(user);
+		
+		
 		
 		userResultDto.setResult("success");
 		return userResultDto;
