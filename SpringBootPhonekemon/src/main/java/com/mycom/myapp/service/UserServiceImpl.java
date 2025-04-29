@@ -1,33 +1,34 @@
 package com.mycom.myapp.service;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycom.myapp.entity.User;
 import com.mycom.myapp.repository.UserRepository;
-import com.mycom.myapp.user.entity.User;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public Optional<User> login(String email, String plainPassword) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            if (plainPassword.equals(user.getPassword())) {
-                return Optional.of(user);
-            }
+    public void signup(String username, String password, String name, String phone) {
+        if (userRepository.findByUsername(username) != null) {
+            throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }
-        return Optional.empty();
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setName(name);
+        user.setPhone(phone);
+        userRepository.save(user);
     }
 
     @Override
-    public User register(User user) {
-        return userRepository.save(user);
+    public boolean login(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        return user != null && user.getPassword().equals(password);
     }
 }

@@ -2,48 +2,50 @@ package com.mycom.myapp.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycom.myapp.entity.Phone;
 import com.mycom.myapp.repository.PhoneRepository;
 
-import lombok.RequiredArgsConstructor;
-
-
-
 @Service
-@RequiredArgsConstructor
 public class PhoneServiceImpl implements PhoneService {
 
-    private final PhoneRepository phoneRepository;
+    @Autowired
+    private PhoneRepository phoneRepository;
 
     @Override
-    public List<Phone> findAll() {
+    public List<Phone> getAllPhones() {
         return phoneRepository.findAll();
     }
 
     @Override
-    public Phone addStock(Long id, int amount) {
-        Phone phone = phoneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Phone not found"));
-        phone.setQuantity(phone.getQuantity() + amount);
+    public Phone getPhoneById(Long id) {
+        return phoneRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Phone savePhone(Phone phone) {
         return phoneRepository.save(phone);
     }
 
     @Override
-    public Phone sellPhone(Long id, int amount) {
-        Phone phone = phoneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Phone not found"));
-        if (phone.getQuantity() < amount) {
-            throw new RuntimeException("Not enough stock");
-        }
-        phone.setQuantity(phone.getQuantity() - amount);
-        return phoneRepository.save(phone);
-    }
-
-    @Override
-    public Phone findById(Long id) {
+    public Phone updatePhone(Long id, Phone updatedPhone) {
         return phoneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Phone not found"));
+            .map(phone -> {
+                // 기존 phone 정보를 updatedPhone에서 받아온 값으로 갱신
+                phone.update(updatedPhone.getName(), updatedPhone.getManufacturer(), updatedPhone.getPrice(), updatedPhone.getQuantity());
+                return phoneRepository.save(phone);
+            })
+            .orElse(null);
+    }
+
+    @Override
+    public boolean deletePhone(Long id) {
+        if (phoneRepository.existsById(id)) {
+            phoneRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

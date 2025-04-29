@@ -5,8 +5,9 @@ import java.util.List;
 import com.mycom.myapp.entity.Phone;
 
 public interface PhoneService {
-    List<Phone> findAll();
-    Phone addStock(Long id, int amount);
-    Phone sellPhone(Long id, int amount);
-    Phone findById(Long id);
+    List<Phone> getAllPhones();
+    Phone savePhone(Phone phone);
+    Phone getPhoneById(Long id);
+    Phone updatePhone(Long id, Phone phone);
+    boolean deletePhone(Long id);
 }

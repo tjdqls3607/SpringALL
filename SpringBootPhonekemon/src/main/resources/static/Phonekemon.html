@@ -62,9 +62,15 @@
 </div>
 
 <script>
+    // 휴대폰 목록을 불러오는 함수
     function loadPhones() {
-        fetch('/phones') // ex) @GetMapping("/phones")가 필요한 API
-            .then(res => res.json())
+        fetch('/api/phones')  // 서버에 GET 요청
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('서버 오류');
+                }
+                return res.json();
+            })
             .then(data => {
                 const table = document.getElementById("inventoryTable");
                 table.innerHTML = '';
@@ -75,29 +81,46 @@
                             <td>${phone.name}</td>
                             <td>${phone.manufacturer}</td>
                             <td>${phone.price.toLocaleString()} 원</td>
-                            <td>${phone.quantity}</td>
+                            <td>${phone.quantity}</td> <!-- quantity 추가 -->
                         </tr>
                     `;
                 });
+            })
+            .catch(err => {
+                console.error("휴대폰 데이터 불러오기 오류:", err);
+                alert("데이터를 불러오는 중 오류가 발생했습니다.");
             });
     }
 
+    // 재고를 업데이트하는 함수
     function updateStock(event) {
         event.preventDefault();
         const id = document.getElementById("phoneId").value;
         const quantity = parseInt(document.getElementById("amount").value);
         const action = document.getElementById("actionType").value;
 
-        fetch(`/phones/${id}/${action}?quantity=${quantity}`, {
-            method: 'POST'
+        fetch(`/api/phones/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                quantity: action === 'add' ? quantity : -quantity // 입고일 경우 양수, 판매일 경우 음수
+            })
         })
         .then(res => {
             if (res.ok) {
                 alert("변경 완료!");
-                loadPhones();
+                loadPhones();  // 변경 후 재고 새로고침
             } else {
-                alert("오류 발생!");
+                return res.text().then(errorMessage => {
+                    alert(`오류 발생: ${errorMessage}`);
+                });
             }
+        })
+        .catch(err => {
+            console.error("재고 업데이트 오류:", err);
+            alert("재고 업데이트 중 오류가 발생했습니다.");
         });
     }
 </script>
