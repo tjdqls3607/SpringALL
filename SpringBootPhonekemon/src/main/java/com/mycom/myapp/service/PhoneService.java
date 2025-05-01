@@ -10,4 +10,6 @@ public interface PhoneService {
     Phone getPhoneById(Long id);
     Phone updatePhone(Long id, Phone phone);
     boolean deletePhone(Long id);
+
+    String getInventory();
 }

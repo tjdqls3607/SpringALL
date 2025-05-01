@@ -20,9 +20,9 @@ public class Phone {
 
     private String name;
     private String manufacturer;
-    private int price;
+    private Integer price;
 
-    private int quantity; // 재고 수량 추가
+    private Integer quantity; // 재고 수량 추가
 
     // 기존 업데이트 메서드 수정
     public void update(String name, String manufacturer, int price, int quantity) {

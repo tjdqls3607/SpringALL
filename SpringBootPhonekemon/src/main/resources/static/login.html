@@ -28,8 +28,14 @@
     </div>
 </div>
 
+<!-- 재고 정보 표시 부분 -->
+<div id="inventoryResult" class="container mt-5" style="display:none;">
+    <h3>휴대폰 재고</h3>
+    <pre id="inventoryData"></pre>
+</div>
+
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+document.getElementById("loginForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const data = new URLSearchParams();
@@ -43,26 +49,28 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         },
         body: data.toString()
     })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error("로그인 실패");
-        }
-    })
-    .then(message => {
-        document.getElementById("loginResult").textContent = message;
-        document.getElementById("loginResult").style.color = "green";
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error("로그인 실패");
+            }
+        })
+        .then(message => {
+            document.getElementById("loginResult").textContent = message;
+            document.getElementById("loginResult").style.color = "green";
 
-        // ✅ 로그인 성공 후 페이지 이동 (예: 마이페이지)
-        setTimeout(() => {
-            window.location.href = "/Phonekemon.html";  // 이 경로는 네가 구성한 페이지에 맞게 바꿔
-        }, 1000);
-    })
-    .catch(error => {
-        document.getElementById("loginResult").textContent = "아이디 또는 비밀번호가 잘못되었습니다.";
-        document.getElementById("loginResult").style.color = "red";
-    });
+            // ✅ 로그인 성공 후 페이지 이동 (예: 마이페이지)
+            setTimeout(() => {
+                window.location.href = "/Phonekemon.html";  // 이 경로는 네가 구성한 페이지에 맞게 바꿔
+            }, 5000);
+        })
+        .catch(error => {
+            document.getElementById("loginResult").textContent = "아이디 또는 비밀번호가 잘못되었습니다.";
+            document.getElementById("loginResult").style.color = "red";
+        });
+
+
 });
 </script>
 </body>

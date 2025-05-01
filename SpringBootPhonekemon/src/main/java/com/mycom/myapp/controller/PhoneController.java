@@ -1,71 +1,3 @@
-//package com.mycom.myapp.controller;
-//
-//import java.util.List;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.mycom.myapp.entity.Phone;
-//import com.mycom.myapp.service.PhoneService;
-//
-//@RestController
-//@RequestMapping("/api/phones")
-//public class PhoneController {
-//
-//    @Autowired
-//    private PhoneService phoneService;
-//
-//    @GetMapping
-//    public ResponseEntity<List<Phone>> getAllPhones() {
-//        List<Phone> phones = phoneService.getAllPhones();
-//        return ResponseEntity.ok(phones);
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<Phone> addPhone(@RequestBody Phone phone) {
-//        Phone savedPhone = phoneService.savePhone(phone);
-//        return ResponseEntity.ok(savedPhone);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Phone> getPhoneById(@PathVariable Long id) {
-//        Phone phone = phoneService.getPhoneById(id);
-//        if (phone != null) {
-//            return ResponseEntity.ok(phone);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Phone> updatePhone(@PathVariable Long id, @RequestBody Phone updatedPhone) {
-//        Phone phone = phoneService.updatePhone(id, updatedPhone);
-//        if (phone != null) {
-//            return ResponseEntity.ok(phone);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deletePhone(@PathVariable Long id) {
-//        boolean deleted = phoneService.deletePhone(id);
-//        if (deleted) {
-//            return ResponseEntity.noContent().build();
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-//}
-
 
 package com.mycom.myapp.controller;
 
@@ -161,6 +93,14 @@ public class PhoneController {
         public void setQuantity(int quantity) {
             this.quantity = quantity;
         }
+    }
+
+    // logging aspect
+    @GetMapping("/inventory")
+    public ResponseEntity<String> getInventory() {
+        // 재고 정보를 가져옴 (예시: JSON 반환)
+        String inventory = phoneService.getInventory();
+        return ResponseEntity.ok(inventory);
     }
 }
 

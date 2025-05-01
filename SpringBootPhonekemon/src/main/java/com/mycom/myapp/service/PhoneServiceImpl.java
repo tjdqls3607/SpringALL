@@ -29,15 +29,27 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneRepository.save(phone);
     }
 
+    // ❗ 여기 수정됨: null 값 덮어쓰기 방지
     @Override
     public Phone updatePhone(Long id, Phone updatedPhone) {
         return phoneRepository.findById(id)
-            .map(phone -> {
-                // 기존 phone 정보를 updatedPhone에서 받아온 값으로 갱신
-                phone.update(updatedPhone.getName(), updatedPhone.getManufacturer(), updatedPhone.getPrice(), updatedPhone.getQuantity());
-                return phoneRepository.save(phone);
-            })
-            .orElse(null);
+                .map(phone -> {
+                    if (updatedPhone.getName() != null) {
+                        phone.setName(updatedPhone.getName());
+                    }
+                    if (updatedPhone.getManufacturer() != null) {
+                        phone.setManufacturer(updatedPhone.getManufacturer());
+                    }
+                    if (updatedPhone.getPrice() != null) {
+                        phone.setPrice(updatedPhone.getPrice());
+                    }
+                    // 수량은 null 체크 (0은 유효한 값이니 null만 걸러야 함)
+                    if (updatedPhone.getQuantity() != null) {
+                        phone.setQuantity(updatedPhone.getQuantity());
+                    }
+                    return phoneRepository.save(phone);
+                })
+                .orElse(null);
     }
 
     @Override
@@ -47,5 +59,17 @@ public class PhoneServiceImpl implements PhoneService {
             return true;
         }
         return false;
+    }
+
+
+    public String getInventory() {
+        // 예시로 재고 정보를 JSON 형태로 반환
+        return """
+                {
+                    "iPhone 13": 50,
+                    "Samsung Galaxy S21": 30,
+                    "Google Pixel 6": 20
+                }
+                """;
     }
 }

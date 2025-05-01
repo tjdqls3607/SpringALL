@@ -99,29 +99,29 @@
         const quantity = parseInt(document.getElementById("amount").value);
         const action = document.getElementById("actionType").value;
 
-        fetch(`/api/phones/${id}`, {
-            method: 'PUT',
+        fetch(`/api/phones/${id}/${action}`, {  // ✅ 올바른 재고 수정 API로 요청
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                quantity: action === 'add' ? quantity : -quantity // 입고일 경우 양수, 판매일 경우 음수
+                quantity: quantity  // ✅ 부호는 서버가 알아서 처리하도록 보냄
             })
         })
-        .then(res => {
-            if (res.ok) {
-                alert("변경 완료!");
-                loadPhones();  // 변경 후 재고 새로고침
-            } else {
-                return res.text().then(errorMessage => {
-                    alert(`오류 발생: ${errorMessage}`);
-                });
-            }
-        })
-        .catch(err => {
-            console.error("재고 업데이트 오류:", err);
-            alert("재고 업데이트 중 오류가 발생했습니다.");
-        });
+            .then(res => {
+                if (res.ok) {
+                    alert("변경 완료!");
+                    loadPhones();  // 변경 후 재고 새로고침
+                } else {
+                    return res.text().then(errorMessage => {
+                        alert(`오류 발생: ${errorMessage}`);
+                    });
+                }
+            })
+            .catch(err => {
+                console.error("재고 업데이트 오류:", err);
+                alert("재고 업데이트 중 오류가 발생했습니다.");
+            });
     }
 </script>
 
