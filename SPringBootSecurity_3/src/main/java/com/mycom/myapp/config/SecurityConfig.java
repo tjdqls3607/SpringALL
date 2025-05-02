@@ -39,7 +39,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         request -> {
                             // 위 두개의 경로에 대한 요청은 인증/인가 처리를 하지 않겠다.
-                            request.requestMatchers("/", "/index.html").permitAll()
+                            request.requestMatchers(
+                                    "/",
+                                    "/index.html",
+                                    "/csrf-token",
+                                    "/login"
+                                    ).permitAll()
                                     .requestMatchers("/customer/**").hasAnyRole("ADMIN", "CUSTOMER")
                                     .requestMatchers("/admin/**").hasRole("ADMIN");
                             // 그 외 경로에 대한 요청은 인증이 필요하다.

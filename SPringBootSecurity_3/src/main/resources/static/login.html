@@ -23,5 +23,17 @@
     </form>
 
     <div id="error-message" style="color: red; margin-top: 10px;"></div>
+
+<script>
+    window.onload = function () {
+        getCsrfToken();
+    }
+
+    async function getCsrfToken(){
+        let response = await fetch('/csrf-token', { method: 'GET', credentials: 'same-origin' });   // 자격증명 보내기
+        let data = await response.json();
+        document.querySelector('#_csrf').value = data.token;
+    }
+</script>
 </body>
 </html>
