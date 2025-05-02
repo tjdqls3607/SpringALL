@@ -8,4 +8,9 @@ public class PageController {
     public String board() {
         return "/board.html";
     }
+
+    @GetMapping("/register")
+    public String register() {
+        return "/register.html";
+    }
 }

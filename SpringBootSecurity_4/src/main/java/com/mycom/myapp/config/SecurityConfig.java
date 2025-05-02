@@ -46,7 +46,10 @@ public class SecurityConfig {
                                     "/",
                                     "/index.html",
                                     "/csrf-token",
-                                    "/login"
+                                    "/login",
+                                    "/register",
+                                    "/register.html",
+                                    "/users/**"
                                     ).permitAll()
                                     .requestMatchers("/customer/**").hasAnyRole("ADMIN", "CUSTOMER")
                                     .requestMatchers("/admin/**").hasRole("ADMIN");
