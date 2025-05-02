@@ -62,6 +62,7 @@ public class SecurityConfig {
                                 // 만약 구현하지 않으면 csrf 토큰이 없다는 오류 발생, 로그인 처리 X
                                 // csrf 를 무시하도록 설정도 가능
                                 .loginPage("/login.html")
+                                .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/", true)
                                 .permitAll()
                 )
