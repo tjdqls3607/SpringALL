@@ -19,7 +19,7 @@ public class SecurityConfig {
                         request.requestMatchers("/", "/index.html").permitAll();
                         request.anyRequest().authenticated();
                     }
-                )    // 권한에 대해서 http request를 어떻게 처리할지 ( /,  index.html 모두 허락 나머지는 모두 인증)
+                )
                 .formLogin( Customizer.withDefaults() ) // 아무런 설정 없는 경우와 동일
                 .build();
     }
