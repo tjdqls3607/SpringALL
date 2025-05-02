@@ -4,9 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     // 요청에 대해서 모두 허락
@@ -34,8 +36,11 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(
                     request -> {
-                        request.requestMatchers("/", "/index.html").permitAll();
-                        request.anyRequest().authenticated();
+                        request.requestMatchers("/", "/index.html").permitAll()
+                                .requestMatchers("/customer/**").hasAnyRole("CUSTIMER", "ADMIN")   // 역할에 따라 접근가능
+                                .requestMatchers("/admin/**").hasRole("ADMIN") // ADMIN ROLE 만 접근 가능
+                                .anyRequest().authenticated();
+                                
                     }
                 )    // 권한에 대해서 http request를 어떻게 처리할지 ( /,  index.html 모두 허락 나머지는 모두 인증)
                 .formLogin( Customizer.withDefaults() ) // 아무런 설정 없는 경우와 동일
