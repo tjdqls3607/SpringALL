@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 		UserResultDto userResultDto = new UserResultDto();
 
 			try {
-				Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+				Optional<User> optionalUser = userRepository.findByName(userDto.getEmail());
 
 				if (optionalUser.isPresent()) {
 					userResultDto.setResult("exist");

@@ -89,23 +89,23 @@ public class MyUserDetailsService implements UserDetailsService{
 //  }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByName(email); // email 파라미터는 username 값이 들어옴
 
-        Optional<User> optionalUser = userRepository.findByEmail(email);
 
-        if( optionalUser.isPresent() ) {
-
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             List<UserRole> listUserRole = user.getUserRoles();
 
-            List<SimpleGrantedAuthority> authorites =
-                    listUserRole.stream().map(UserRole::getName).map(String::new).map(SimpleGrantedAuthority::new).toList();
+            List<SimpleGrantedAuthority> authorities = listUserRole.stream()
+                    .map(userRole -> new SimpleGrantedAuthority("ROLE_" + userRole.getName()))
+                    .toList();
 
             // MyUserDetails 사용
             UserDetails userDetails = MyUserDetails.builder()
                     .username(user.getEmail())
                     .password(user.getPassword())
-                    .email(user.getEmail()) // user 의 다양한 정보를 추가
-                    .authorities(authorites)
+                    .email(user.getEmail())
+                    .authorities(authorities)
                     .build();
 
             return userDetails;
@@ -113,4 +113,5 @@ public class MyUserDetailsService implements UserDetailsService{
 
         throw new UsernameNotFoundException("User not found");
     }
+
 }
