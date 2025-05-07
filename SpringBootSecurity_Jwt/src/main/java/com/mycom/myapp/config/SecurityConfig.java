@@ -3,10 +3,10 @@ package com.mycom.myapp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 public class SecurityConfig {
@@ -35,10 +35,15 @@ public class SecurityConfig {
     // 아무런 설정 없는 경우와 동일
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http,
-                                    MyAuthenticationFailureHandler failureHandler,
-                                    MyAuthenticationSuccessHandler successHandler
-                                    ) throws Exception {
+                                  MyAuthenticationeEntryPoint entryPoint
+    ) throws Exception {
         return http
+                // form login 관련 disable
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(formLogin -> formLogin.disable())
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
                 .authorizeHttpRequests(
                         request -> {
                             // 위 두개의 경로에 대한 요청은 인증/인가 처리를 하지 않겠다.
@@ -57,25 +62,13 @@ public class SecurityConfig {
                             request.anyRequest().authenticated();
                         }
                 )
-
-                // csrf 설정
-//                .csrf( csrf -> csrf.disable()) 기능 OFF
-                .csrf( csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())) // cookie 로 csrf token 을 내려준다.
-                .formLogin(
-                        form ->
-                            form
-                                // 사용자정의 login 페이지를 사용하면 기본적으로 csrf 를 전송하도록 구현해야 한다.
-                                // 만약 구현하지 않으면 csrf 토큰이 없다는 오류 발생, 로그인 처리 X
-                                // csrf 를 무시하도록 설정도 가능
-                                .loginPage("/login.html")
-                                .loginProcessingUrl("/login")
-                                // ajax 요청 처리를 하는 별도의 Handler
-                                .successHandler(successHandler)
-                                .failureHandler(failureHandler)
-//                                .defaultSuccessUrl("/", true) // 얘가 뭔지 찾아보기
-                                .permitAll()
-                )
-                .logout(logout -> logout.permitAll()) // /logout url로 요청하면 자동으로 Spring Security 가 session 을 invalidate
+                // formLogin 방식에서 허락되지 않는 요청에 대해 자동으로 login  페이지로 분기
+                // formLogin 을 사용 X -> 예외 발생 -> json 응답 -> (login 필요)
+                .exceptionHandling(
+                        exceptionHandlingCustmoizer ->
+                                exceptionHandlingCustmoizer.authenticationEntryPoint(entryPoint))
+                // formLogin 방식에서는 Spring Security 가 자동으로 Filter 처리 ( UsernamePasswordAuthenticationFilter)
+                // formLogin 을 사용 X -> 위 필터 앞에서 한 번 수행되는 jwt 인증 필터를 적용
                 .build();
     }
 
