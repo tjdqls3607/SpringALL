@@ -1,21 +1,19 @@
 package com.mycom.myapp.user.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.mycom.myapp.user.dto.UserDto;
-import com.mycom.myapp.user.dto.UserResultDto;
-import com.mycom.myapp.user.repository.UserRoleRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.mycom.myapp.user.entity.User;
 import com.mycom.myapp.user.entity.UserRole;
 import com.mycom.myapp.user.repository.UserRepository;
-
+import com.mycom.myapp.user.dto.UserDto;
+import com.mycom.myapp.user.dto.UserResultDto;
+import com.mycom.myapp.user.repository.UserRoleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 // Register 단계
 // UserRepository - save
