@@ -1,5 +1,8 @@
 package com.mycom.myapp.config;
 
+import com.mycom.myapp.jwt.JwtAuthenticationFilter;
+import com.mycom.myapp.jwt.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,32 +10,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
-//    // 모든 요청에 대한 인가 처리
-//    @Bean
-//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .authorizeHttpRequests(request -> request.anyRequest().permitAll())
-//                .build();
-//    }
 
-//    // 모든 요청에 대한 인증
-//    // 로그인 페이지를 통한 인증
-//    // 아무런 설정 없는 경우와 동일
-//    @Bean
-//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .authorizeHttpRequests(request -> request.anyRequest().authenticated())
-//                .formLogin(Customizer.withDefaults())
-//                .build();
-//    }
+    private final JwtUtil jwtUtil;
 
-    // 모든 요청에 대한 인증
-    // /,index.html 모두 허락
-    // 로그인 페이지를 통한 인증
-    // 아무런 설정 없는 경우와 동일
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http,
                                   MyAuthenticationeEntryPoint entryPoint
@@ -69,6 +54,7 @@ public class SecurityConfig {
                                 exceptionHandlingCustmoizer.authenticationEntryPoint(entryPoint))
                 // formLogin 방식에서는 Spring Security 가 자동으로 Filter 처리 ( UsernamePasswordAuthenticationFilter)
                 // formLogin 을 사용 X -> 위 필터 앞에서 한 번 수행되는 jwt 인증 필터를 적용
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
