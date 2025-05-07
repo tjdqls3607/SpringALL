@@ -1,15 +1,17 @@
 package com.mycom.myapp.config;
-import java.util.List;
-import java.util.Optional;
+
+import com.mycom.myapp.user.entity.User;
+import com.mycom.myapp.user.entity.UserRole;
+import com.mycom.myapp.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.mycom.myapp.user.entity.User;
-import com.mycom.myapp.user.entity.UserRole;
-import com.mycom.myapp.user.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MyUserDetailsService implements UserDetailsService{

@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycom.myapp.auth.dao.LoginDao">
-	<select id="login" parameterType="string" resultType="com.mycom.myapp.user.dto.UserDto">
+	<select id="login" parameterType="string" resultType="dto.com.mycom.myapp.UserDto">
 		select user_seq, user_name, user_password, user_email, user_profile_image, user_register_date
 		 from users
 		where user_email = #{userEmail}

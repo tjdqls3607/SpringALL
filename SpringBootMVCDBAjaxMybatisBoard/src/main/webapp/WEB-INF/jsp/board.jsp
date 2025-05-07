@@ -1,6 +1,6 @@
 <%@page import="ch.qos.logback.core.net.SyslogOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.mycom.myapp.user.dto.UserDto"%>
+<%@ page import="dto.com.mycom.myapp.UserDto"%>
 <%
     UserDto userDto = (UserDto) session.getAttribute("userDto");
 %>
