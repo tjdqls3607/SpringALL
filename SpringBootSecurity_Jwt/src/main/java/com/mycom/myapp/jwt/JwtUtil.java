@@ -4,6 +4,7 @@ import com.mycom.myapp.config.MyUserDetailsService;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import java.util.List;
 // jwt 생성 검증
 @Component
 @RequiredArgsConstructor
+@Getter
 public class JwtUtil {
 
     @Value("${myapp.jwt.secret}")
@@ -31,11 +33,11 @@ public class JwtUtil {
 
     @PostConstruct
     private void init() {
-        System.out.println(secretKeyStr);
+//        System.out.println(secretKeyStr);
         secretKey = new SecretKeySpec(secretKeyStr.getBytes(StandardCharsets.UTF_8),
                 Jwts.SIG.HS256.key().build().getAlgorithm()
         );
-        System.out.println(secretKey);
+//        System.out.println(secretKey);
     }
 
     // jwt 생성
@@ -55,6 +57,7 @@ public class JwtUtil {
 
     // UserDetailsService 를 통해 사용자 인증된 객체
     // 이를 통해서 UsernamePasswordAuthenticationToken 객체를 만들어 리턴
+    // 유효성 검증을 아래 메소드를 통해서 DB를 통한 검증을 진행하는건 token 발급 기간이 길면 발급시점의 userDetails 와 현재 UserDetails 가 다를 수 있다는 점 강조
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(this.getUsernameFromToken(token));
         return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), "", userDetails.getAuthorities());

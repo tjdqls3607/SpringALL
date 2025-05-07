@@ -1,22 +1,32 @@
 package com.mycom.myapp.config;
 
-import com.mycom.myapp.jwt.JwtAuthenticationFilter;
 import com.mycom.myapp.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http,
@@ -35,8 +45,8 @@ public class SecurityConfig {
                             request.requestMatchers(
                                     "/",
                                     "/index.html",
-                                    "/csrf-token",
                                     "/login",
+                                    "/login.html",
                                     "/register",
                                     "/register.html",
                                     "/users/**"
@@ -54,12 +64,9 @@ public class SecurityConfig {
                                 exceptionHandlingCustmoizer.authenticationEntryPoint(entryPoint))
                 // formLogin 방식에서는 Spring Security 가 자동으로 Filter 처리 ( UsernamePasswordAuthenticationFilter)
                 // formLogin 을 사용 X -> 위 필터 앞에서 한 번 수행되는 jwt 인증 필터를 적용
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }
