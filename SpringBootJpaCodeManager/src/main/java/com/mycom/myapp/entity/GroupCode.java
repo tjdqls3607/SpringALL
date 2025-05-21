@@ -15,7 +15,7 @@ import lombok.Data;
 public class GroupCode {
 
     @Id
-    @Column (name="croup_code")
+    @Column (name="group_code")
     private String groupCode;
 
     @Column (name="group_Code_Name")

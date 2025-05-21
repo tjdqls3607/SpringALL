@@ -87,14 +87,15 @@ public class GroupCodeServiceImpl implements GroupCodeService {
         CodeResultDto codeResultDto = new CodeResultDto();
         try {
             Optional<GroupCode> optionalGroupCode = groupCodeRepository.findById(groupCode);
+
             optionalGroupCode.ifPresentOrElse(
-                    null,
-                    null
+                    detailGroupCode -> {
+                        codeResultDto.setGroupCodeDto( GroupCodeDto.fromGroupCode(detailGroupCode));
+                        codeResultDto.setResult("success");
+                    },
+                    () -> codeResultDto.setResult("fail")
             );
-
-
-            codeResultDto.setResult("success");
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             codeResultDto.setResult("fail");
         }
