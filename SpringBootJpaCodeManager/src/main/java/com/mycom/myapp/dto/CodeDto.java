@@ -13,7 +13,7 @@ public class CodeDto {
 
     private String groupCode;
     private String code;
-    private String codeName
+    private String codeName;
     private String codeNameBrief;
     private int orderNo;
 

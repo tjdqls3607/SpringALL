@@ -4,14 +4,15 @@ package com.mycom.myapp.entity;
 import com.mycom.myapp.entity.key.Codekey;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Entity
 @Data
-@Embeddable
-public class Code {
 
+public class Code {
+    @EmbeddedId
     Codekey codekey;
 
     @Column (name = "code_name")
