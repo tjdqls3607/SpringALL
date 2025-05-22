@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class GroupCodeDto {
+
     private String groupCode;
     private String groupCodeName;
     private String groupCodeDesc;

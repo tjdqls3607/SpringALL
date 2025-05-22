@@ -1,12 +1,11 @@
 package com.mycom.myapp.service;
 
 import com.mycom.myapp.dto.CodeResultDto;
-import com.mycom.myapp.dto.GroupCodeDto;
-import com.mycom.myapp.entity.GroupCode;
-import com.mycom.myapp.repository.GroupCodeRepository;
-import jakarta.persistence.Id;
+import com.mycom.myapp.dto.CodeDto;
+import com.mycom.myapp.entity.Code;
+import com.mycom.myapp.entity.key.CodeKey;
+import com.mycom.myapp.repository.CodeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,17 +17,15 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class GroupCodeServiceImpl implements GroupCodeService {
+public class CodeServiceImpl implements CodeService {
 
-    private final GroupCodeRepository groupCodeRepository;
+    private final CodeRepository codeRepository;
 
     @Override
-    public CodeResultDto insertGroupCode(GroupCode groupCode) {
+    public CodeResultDto insertCode(Code code) {
         CodeResultDto codeResultDto = new CodeResultDto();
         try{
-            // isNew = true
-            groupCode.setNew(true);
-            groupCodeRepository.save(groupCode);
+            codeRepository.save(code);
             codeResultDto.setResult("success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,12 +36,10 @@ public class GroupCodeServiceImpl implements GroupCodeService {
     }
 
     @Override
-    public CodeResultDto updateGroupCode(GroupCode groupCode) {
+    public CodeResultDto updateCode(Code code) {
         CodeResultDto codeResultDto = new CodeResultDto();
         try{
-            // isNew = false
-            groupCode.setNew(false);
-            groupCodeRepository.save(groupCode);
+            codeRepository.save(code);
             codeResultDto.setResult("success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,10 +50,10 @@ public class GroupCodeServiceImpl implements GroupCodeService {
     }
 
     @Override
-    public CodeResultDto deleteGroupCode(String groupCode) {
+    public CodeResultDto deleteCode(CodeKey codeKey) {
         CodeResultDto codeResultDto = new CodeResultDto();
         try{
-            groupCodeRepository.deleteById(groupCode);
+            codeRepository.deleteById(codeKey);
             codeResultDto.setResult("success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,20 +64,20 @@ public class GroupCodeServiceImpl implements GroupCodeService {
     }
 
     @Override
-    public CodeResultDto listGroupCode(int pageNumber, int pageSize) {
+    public CodeResultDto listCode(String groupCode, int pageNumber, int pageSize) {
         CodeResultDto codeResultDto = new CodeResultDto();
         try{
             Pageable pageable = PageRequest.of(pageNumber, pageSize);
-            Page<GroupCode> page = groupCodeRepository.findAll(pageable);
-            List<GroupCodeDto> groupCodeDtoList = new ArrayList<>();
+            Page<Code> page = codeRepository.findByGroupCode(groupCode, pageable);
+            List<CodeDto> codeDtoList = new ArrayList<>();
 
-            // Page<GroupCode> -> List<GroupCodeDto>
-            page.toList().forEach(groupCode ->
-                    groupCodeDtoList.add(GroupCodeDto.fromGroupCode(groupCode)));
-            codeResultDto.setGroupCodeDtoList(groupCodeDtoList);
+            // Page<Code> -> List<CodeDto>
+            page.toList().forEach(code ->
+                    codeDtoList.add(CodeDto.fromCode(code)));
+            codeResultDto.setCodeDtoList(codeDtoList);
 
             // count
-            Long count = groupCodeRepository.count();
+            Long count = codeRepository.count();
             codeResultDto.setCount(count);
 
             codeResultDto.setResult("success");
@@ -97,15 +92,15 @@ public class GroupCodeServiceImpl implements GroupCodeService {
 
 
     @Override
-    public CodeResultDto detailGroupCode(String groupCode) {
+    public CodeResultDto detailCode(CodeKey codeKey) {
         CodeResultDto codeResultDto = new CodeResultDto();
         try {
-            Optional<GroupCode> optionalGroupCode = groupCodeRepository.findById(groupCode);
+            Optional<Code> optionalCode = codeRepository.findById(codeKey);
 
             // ifPresentOrElse(null일때, null 아닐때)
-            optionalGroupCode.ifPresentOrElse(
-                    detailGroupCode -> {
-                        codeResultDto.setGroupCodeDto(GroupCodeDto.fromGroupCode(detailGroupCode));
+            optionalCode.ifPresentOrElse(
+                    detailCode -> {
+                        codeResultDto.setCodeDto(CodeDto.fromCode(detailCode));
                         codeResultDto.setResult("success");
                     },
                     () -> codeResultDto.setResult("fail")
@@ -119,10 +114,10 @@ public class GroupCodeServiceImpl implements GroupCodeService {
 
 
     @Override
-    public CodeResultDto countGroupCode() {
+    public CodeResultDto countCode() {
         CodeResultDto codeResultDto = new CodeResultDto();
         try{
-            Long count = groupCodeRepository.count();
+            Long count = codeRepository.count();
             codeResultDto.setCount(count);
             codeResultDto.setResult("success");
         } catch (Exception e) {

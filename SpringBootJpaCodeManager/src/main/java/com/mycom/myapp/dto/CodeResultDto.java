@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class CodeResultDto {
+
     private String result;
     private CodeDto codeDto;
     private GroupCodeDto groupCodeDto;
