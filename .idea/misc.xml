@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/SlackApiTest" />
     <file type="web" url="file://$PROJECT_DIR$/SpringBootJpaCodeManager" />
     <file type="web" url="file://$PROJECT_DIR$/SpringBootSecurity_1" />
     <file type="web" url="file://$PROJECT_DIR$/SpringBootSecurity_2" />

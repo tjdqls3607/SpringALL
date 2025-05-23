@@ -19,8 +19,8 @@ public class CodeDto {
 
     public static CodeDto fromCode(Code code) {
         return CodeDto.builder()
-                .groupCode(code.getCodekey().getGroupCode())
-                .code(code.getCodekey().getCode())
+                .groupCode(code.getCodeKey().getGroupCode())
+                .code(code.getCodeKey().getCode())
                 .codeName(code.getCodeName())
                 .codeNameBrief(code.getCodeNameBrief())
                 .orderNo(code.getOrderNo())
